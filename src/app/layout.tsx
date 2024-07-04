@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { FloatingNav } from "@/components/navbar/nav-floating";
+import { navItems } from "@/lib/data/config";
+import { ThemeProvider } from "./provider";
+import QueryProvider from "@/components/provider/query-provider";
+import AuthProvider from "@/components/provider/0auth-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+
+const font = Poppins({
+  subsets: ['latin'],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +25,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
+      <html lang="en">
+          <body
+          suppressHydrationWarning
+          className={cn(font.className, "text-neutral-800")}>
+          <AuthProvider>
+            <QueryProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <FloatingNav navItems={navItems} />
+                {children}
+              </ThemeProvider>
+            </QueryProvider>
+          </AuthProvider>
+        </body>
+      </html>
+  )
 }
