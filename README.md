@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+, {
+// For all available options, see:
+// https://github.com/getsentry/sentry-webpack-plugin#options
 
-## Getting Started
+org: "iot-hr",
+project: "javascript-nextjs",
 
-First, run the development server:
+// Only print logs for uploading source maps in CI
+silent: !process.env.CI,
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+// For all available options, see:
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+// Upload a larger set of source maps for prettier stack traces (increases build time)
+widenClientFileUpload: true,
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+// Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
+// This can increase your server load as well as your hosting bill.
+// Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
+// side errors will fail.
+tunnelRoute: "/monitoring",
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+// Hides source maps from generated client bundles
+hideSourceMaps: true,
 
-## Learn More
+// Automatically tree-shake Sentry logger statements to reduce bundle size
+disableLogger: true,
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+// Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
+// See the following for more information:
+// https://docs.sentry.io/product/crons/
+// https://vercel.com/docs/cron-jobs
+automaticVercelMonitors: true,
+}

@@ -3,6 +3,9 @@ import { TextGenerateEffect } from "@/components/ui/textGenerateEffect";
 import { SignIn, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import Experience from "./about/page";
+import Approach from "../../components/home/home-approch";
+import Clients from "@/components/home/home-client";
 
 export default function Home() {
   return (
@@ -24,7 +27,6 @@ export default function Home() {
             className="h-screen w-full dark:bg-black-100  dark:bg-grid-white/[0.03] bg-grid-black-100/[0.2]
             absolute top-0 left-0 flex items-center justify-center">
             <div
-              // chnage the bg to bg-black-100, so it matches the bg color and will blend in
               className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100
             bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
             />
@@ -42,6 +44,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Experience />
+        <Clients />
+        <Approach />
       </div>
     </main>
   );

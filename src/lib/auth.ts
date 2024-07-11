@@ -15,15 +15,15 @@ export const AuthOpations: NextAuthOptions = {
       CredentialsProvider({
         name: "credentials",
         credentials: {
-          username: { label: "Username", type: "text" },
+          name: { label: "Username", type: "text" },
           password: {label: "Password", type: "password"},
         },
         async authorize(credentials) {
-          if(!credentials?.username || !credentials?.password) {
+          if(!credentials?.name || !credentials?.password) {
             return null;
           }
           const user = await prisma.user.findFirst({
-            where: {name: credentials.username},
+            where: {name: credentials.name},
           });
           if(user && bcrypt.compareSync(credentials.password, user.password!)) {
             return user;
@@ -37,7 +37,7 @@ export const AuthOpations: NextAuthOptions = {
         const result = await prisma.user.findFirst({
           where: {name: user?.name},
         });
-        if(account) {
+        if(account?.provider === "google") {
           if(!result) {
             await prisma.user.create({
               data: {

@@ -12,7 +12,7 @@ import { Skeleton } from "../ui/skeleton";
 import { Button } from "../ui/button";
 import { LogIn } from "lucide-react";
 import { useSession } from "next-auth/react";
-import UserAccountNav from "../auth/account-nav";
+
 import { hover } from "@/lib/hover";
 
 export const FloatingNav = ({
@@ -98,7 +98,7 @@ export const FloatingNav = ({
             <Skeleton className='w-28 h-10 rounded-xl' />
           )}
           {status === "authenticated" && (
-            <UserAccountNav />
+            <p>sukses</p>
           )}
           {status === "unauthenticated" && (
             <Button
